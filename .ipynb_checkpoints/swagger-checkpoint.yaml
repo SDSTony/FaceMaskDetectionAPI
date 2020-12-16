@@ -1,0 +1,42 @@
+openapi: 3.0.1   # Open api version
+
+info:   # Set basic infomation
+  title: FaceMaskDetectionAPI
+  version: 0.1.1
+
+servers:   # Set your server endpoint
+  - url: https://master-face-mask-detection-api-sds-tony.endpoint.ainize.ai
+
+paths:
+  /predict:   # GET method path
+    post:
+      requestBody:
+        required: true
+        description: detects face masks
+          content: 
+            multipart/form-data:
+              schema:
+                type: object
+                properties:
+                  file:
+                    type: string
+                    format: binary
+                required: 
+                  - file
+                
+      responses:   # Set response
+        '200':
+          description: Successful Response
+          content:   # Descriptions of potential response payloads (optional)
+            images/*:
+              schema:   # Set data types
+                type: string
+                format: binary           
+        '400':
+          description: Bad Request Error
+        '500':
+          description: Server-side Error
+        '503':
+          description: Server is not ready
+        default: 
+          description: Unexpected Error 

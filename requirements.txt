@@ -2,3 +2,4 @@ torchvision==0.8.1
 matplotlib
 Pillow
 Flask==1.0.3
+waitress

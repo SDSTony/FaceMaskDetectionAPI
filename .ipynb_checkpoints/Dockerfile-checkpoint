@@ -1,7 +1,6 @@
 FROM pytorch/pytorch:1.7.0-cuda11.0-cudnn8-runtime
 
 RUN pip install --upgrade pip
-RUN apt-get update && apt-get install -y libsm6 libxext6 libxrender-dev libglib2.0-0 libgtk2.0-dev
 
 COPY requirements.txt .
 
@@ -12,4 +11,4 @@ COPY . .
 
 EXPOSE 80
 
-CMD python app.py
+CMD python app_face.py

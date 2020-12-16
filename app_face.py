@@ -8,12 +8,14 @@ import torchvision.transforms as transforms
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from PIL import Image
 from flask import Flask, jsonify, request, send_file, make_response
+import numpy as np
 
 
 
 #send file을 해줘야하는 것 같음
 
 app = Flask(__name__)
+
 
 def get_model_instance_segmentation(num_classes):
   
@@ -23,7 +25,9 @@ def get_model_instance_segmentation(num_classes):
 
     return model
 
+print('start loading model')
 model = get_model_instance_segmentation(4)
+print('finished loading model')
 
 if torch.cuda.is_available():
     device = torch.device('cuda')
@@ -33,6 +37,8 @@ else:
     device = torch.device('cpu')
     model.to(device)
     model.load_state_dict(torch.load('fasterrcnn_05.pt', map_location=device))
+
+print('finished loading weight')
 
 model.eval()
 
@@ -97,14 +103,24 @@ def predict():
         tensor = transform_image(image_bytes=img_bytes)
         tensor = tensor.to(device)
         output = make_prediction(model, tensor, 0.5)
-        _fig, _ax = plot_image_from_output(tensor[0], output[0])
+        fig, _ax = plot_image_from_output(tensor[0], output[0])
         
-        canvas = FigureCanvas(_fig)
-        output = io.BytesIO()
-        canvas.print_png(output)
-        response = make_response(output.getvalue())
-        response.mimetype = 'image/png'
-        return response
+#         canvas = FigureCanvas(_fig)
+#         output = io.BytesIO()
+#         canvas.print_png(output)
+#         response = make_response(output.getvalue())
+#         response.mimetype = 'image/png'
+        
+#     return response
+        fig.canvas.draw()
+        data = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
+        data = data.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+        image_file = Image.fromarray(data)
+        img_io = io.BytesIO()
+        image_file.save(img_io, 'PNG', quality = 70)
+        img_io.seek(0)
+        
+    return send_file(img_io, mimetype='image/png')
 
 
 if __name__ == '__main__':
