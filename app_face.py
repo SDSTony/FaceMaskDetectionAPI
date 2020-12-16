@@ -9,39 +9,21 @@ from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from PIL import Image
 from flask import Flask, jsonify, request, send_file, make_response
 import numpy as np
-
+from fasterrcnn import fasterrcnn
 
 
 #send file을 해줘야하는 것 같음
 
 app = Flask(__name__)
 
-
-def get_model_instance_segmentation(num_classes):
-  
-    model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
-    in_features = model.roi_heads.box_predictor.cls_score.in_features
-    model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
-
-    return model
-
-print('start loading model')
-model = get_model_instance_segmentation(4)
-print('finished loading model')
+model = fasterrcnn()
 
 if torch.cuda.is_available():
     device = torch.device('cuda')
-    model.to(device)
-    model.load_state_dict(torch.load('fasterrcnn_05.pt'))
+    
 else:
     device = torch.device('cpu')
-    model.to(device)
-    model.load_state_dict(torch.load('fasterrcnn_05.pt', map_location=device))
-
-print('finished loading weight')
-
-model.eval()
-
+    
 def plot_image_from_output(img, annotation):
     
     img = img.cpu().permute(1,2,0)
