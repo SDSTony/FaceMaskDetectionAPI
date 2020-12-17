@@ -7,10 +7,10 @@
 1. Download any image on Google that has mask on or no mask. You can also use the sample images in 'imgs' directory on [this repo](https://github.com/SDSTony/FaceMaskDetectionApi)
 
 2. Open up cmd prompt and navigate to the directory with the images that you have acquired at step 1
-3. Try the code below to save the detected results to 'result.jpg'. It will send 'mask1.png' file to the API and save the detect results to 'result.jpg'
+3. Try the code below to save the detected results to 'result.jpg'. It will send 'input_image.png' file to the API and save the detect results to 'result.jpg'
 
 ```
-curl -X POST "https://master-face-mask-detection-api-sds-tony.endpoint.ainize.ai/predict" -F "file=@mask1.png;type=image/png" --output result.jpg
+curl -X POST "https://master-face-mask-detection-api-sds-tony.endpoint.ainize.ai/predict" -F "file=@input_image.png;type=image/png" --output result.jpg
 ```
 
 
