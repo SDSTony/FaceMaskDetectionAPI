@@ -10,6 +10,7 @@ from PIL import Image
 from flask import Flask, jsonify, request, send_file, make_response
 import numpy as np
 from fasterrcnn import fasterrcnn
+import os
 
 
 #send file을 해줘야하는 것 같음
@@ -74,6 +75,9 @@ def make_prediction(model, img, threshold):
 
     return preds
 
+@app.route('/')
+def hello():
+    return 'Welcome!'
 
 @app.route('/predict', methods=['POST']) #ainize API 창에 보이는 명령어 이름 기입, methods only accepts POST 
 def predict():
@@ -104,7 +108,8 @@ def predict():
         
     return send_file(img_io, mimetype='image/png')
 
+port = int(os.environ.get('PORT', 80))
 
 if __name__ == '__main__':
     from waitress import serve
-    serve(app, host='0.0.0.0', port=80)
+    serve(app, host='0.0.0.0', port=port)
