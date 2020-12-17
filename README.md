@@ -6,8 +6,8 @@
 
 1. Download any image on Google that has mask on or no mask. You can also use the sample images in 'imgs' directory on [this repo](https://github.com/SDSTony/FaceMaskDetectionApi). Name the image as 'input_image.png'. File extension can be either 'jpg', 'jpeg', 'png', or 'jfif'.
 
-2. Open up cmd prompt and navigate to the directory with the images that you have acquired at step 1
-3. Try the code below to save the detected results to 'result.jpg'. It will send 'input_image.png' file to the API and save the detect results to 'result.jpg'
+2. Open up cmd prompt and navigate to the directory that has the image you have acquired at step 1
+3. Try the code below to save the detected result as 'result.jpg'. It will send 'input_image.png' file to the API and save the detected result to 'result.jpg'. Face with mask on will have green bounding box while face with no mask on will have red bounding box. 
 
 ```
 curl -X POST "https://master-face-mask-detection-api-sds-tony.endpoint.ainize.ai/predict" -F "file=@input_image.png;type=image/png" --output result.jpg
