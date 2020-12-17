@@ -6,7 +6,7 @@
 
 ## Demo
 
-![demo](C:\Users\AhnSungJin\Desktop\Python\FaceMaskDetectionAPI\demo_img.PNG)
+![demo](https://raw.githubusercontent.com/SDSTony/FaceMaskDetectionApi/master/demo_img.PNG)
 
 Detects whether a face mask is worn with green and red bounding boxes. Green if mask worn, red if not worn. 
 
