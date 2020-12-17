@@ -2,6 +2,14 @@
 
 [![Run on Ainize](https://ainize.ai/static/images/run_on_ainize_button.svg)](https://ainize.ai/SDSTony/FaceMaskDetectionApi)
 
+
+
+## Demo
+
+![demo](C:\Users\AhnSungJin\Desktop\Python\FaceMaskDetectionAPI\demo_img.PNG)
+
+Detects whether a face mask is worn with green and red bounding boxes. Green if mask worn, red if not worn. 
+
 ## How to request to API using cURL
 
 1. Download any image on Google that has mask on or no mask. You can also use the sample images in 'imgs' directory on [this repo](https://github.com/SDSTony/FaceMaskDetectionApi). Name the image as 'input_image.png'. File extension can be either 'jpg', 'jpeg', 'png', or 'jfif'.
